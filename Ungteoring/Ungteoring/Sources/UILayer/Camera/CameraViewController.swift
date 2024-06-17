@@ -16,6 +16,7 @@ final class CameraViewController: UIViewController {
     
     // MARK: Properties
     
+    private let viewModel: CameraViewModel
     private let disposeBag = DisposeBag()
     private let captureSession = AVCaptureSession()
     private let photoOutput = AVCapturePhotoOutput()
@@ -40,23 +41,24 @@ final class CameraViewController: UIViewController {
         return imageView
     }()
     
-    private let shutterButton: UIButton = {
-        let button = UIButton()
-        button.setImage(.shutter, for: .normal)
-        return button
-    }()
+    private lazy var galleryButton = makeButton(image: .gallery)
+    private lazy var cancelButton = makeButton(image: .cancel)
+    private lazy var shutterButton = makeButton(image: .shutter)
+    private lazy var saveButton = makeButton(image: .save)
+    private lazy var changeButton = makeButton(image: .change)
+    private lazy var uploadButton = makeButton(image: .upload)
     
-    private let galleryButton: UIButton = {
-        let button = UIButton()
-        button.setImage(.gallery, for: .normal)
-        return button
-    }()
+    // MARK: Initailizer
     
-    private let changeButton: UIButton = {
-        let button = UIButton()
-        button.setImage(.change, for: .normal)
-        return button
-    }()
+    init(viewModel: CameraViewModel) {
+        self.viewModel = viewModel
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: Life Cycle
     
@@ -66,6 +68,7 @@ final class CameraViewController: UIViewController {
         setUI()
         setCamera()
         bindUIComponents()
+        bindViewModel()
     }
     
 }
@@ -73,6 +76,83 @@ final class CameraViewController: UIViewController {
 // MARK: - Methods
 
 extension CameraViewController: AVCapturePhotoCaptureDelegate {
+    
+    private func bindUIComponents() {
+        galleryButton.rx.tap
+            .bind(with: self) { owner, _ in
+                // modal로 띄우기
+            }
+            .disposed(by: self.disposeBag)
+        
+        shutterButton.rx.tap
+            .bind(with: self) { owner, _ in
+                let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
+                owner.photoOutput.capturePhoto(with: settings, delegate: owner)
+                owner.viewModel.action.didShutterButtonTap.onNext(())
+            }
+            .disposed(by: self.disposeBag)
+        
+        changeButton.rx.tap
+            .bind(with: self) { owner, _ in
+                owner.switchCamera()
+            }
+            .disposed(by: self.disposeBag)
+        
+        cancelButton.rx.tap
+            .bind(with: self) { owner, _ in
+                owner.viewModel.action.didCancelButtonTap.onNext(())
+                owner.previewImageView.isHidden = true
+            }
+            .disposed(by: self.disposeBag)
+        
+        saveButton.rx.tap
+            .bind(with: self) { owner, _ in
+                owner.viewModel.action.didSaveButtonTap.onNext(())
+            }
+            .disposed(by: self.disposeBag)
+        
+        uploadButton.rx.tap
+            .bind(with: self) { owner, _ in
+                // 공유하기
+            }
+            .disposed(by: self.disposeBag)
+    }
+    
+    private func bindViewModel() {
+        viewModel.state.contentType
+            .bind(with: self) { owner, type in
+                switch type {
+                case .noData:
+                    [owner.galleryButton,
+                     owner.shutterButton,
+                     owner.changeButton].forEach { $0.isHidden = false }
+                    [owner.cancelButton,
+                     owner.saveButton,
+                     owner.uploadButton].forEach { $0.isHidden = true }
+                case .normal:
+                    [owner.galleryButton,
+                     owner.shutterButton,
+                     owner.changeButton].forEach { $0.isHidden = true }
+                    [owner.cancelButton,
+                     owner.saveButton,
+                     owner.uploadButton].forEach { $0.isHidden = false }
+                case .sensitive:
+                    [owner.galleryButton,
+                     owner.cancelButton,
+                     owner.shutterButton,
+                     owner.saveButton,
+                     owner.changeButton,
+                     owner.uploadButton].forEach { $0.isHidden = true }
+                }
+            }
+            .disposed(by: self.disposeBag)
+    }
+    
+    private func makeButton(image: UIImage) -> UIButton {
+        let button = UIButton()
+        button.setImage(image, for: .normal)
+        return button
+    }
     
     private func setCamera() {
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }
@@ -98,28 +178,6 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
         }
     }
     
-    private func bindUIComponents() {
-        galleryButton.rx.tap
-            .bind(with: self) { owner, _ in
-            }
-            .disposed(by: self.disposeBag)
-        
-        shutterButton.rx.tap
-            .bind(with: self) { owner, _ in
-//                owner.captureSession.stopRunning()
-                
-                let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
-                owner.photoOutput.capturePhoto(with: settings, delegate: owner)
-            }
-            .disposed(by: self.disposeBag)
-        
-        changeButton.rx.tap
-            .bind(with: self) { owner, _ in
-                owner.switchCamera()
-            }
-            .disposed(by: self.disposeBag)
-    }
-    
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let imageData = photo.fileDataRepresentation() else { return }
         let image = UIImage(data: imageData)
@@ -131,13 +189,13 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
         captureSession.beginConfiguration()
         let currentInput = captureSession.inputs.first as? AVCaptureDeviceInput
         captureSession.removeInput(currentInput!)
-
+        
         let newCameraDevice = currentInput?.device.position == .back ? camera(with: .front) : camera(with: .back)
         let newVideoInput = try? AVCaptureDeviceInput(device: newCameraDevice!)
         captureSession.addInput(newVideoInput!)
         captureSession.commitConfiguration()
     }
-
+    
     private func camera(with position: AVCaptureDevice.Position) -> AVCaptureDevice? {
         let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: position)
         return device
@@ -154,7 +212,10 @@ extension CameraViewController {
                                previewImageView,
                                galleryButton,
                                shutterButton,
-                               changeButton])
+                               changeButton,
+                               cancelButton,
+                               saveButton,
+                               uploadButton])
         
         self.setConstraints()
     }
@@ -172,20 +233,20 @@ extension CameraViewController {
             make.height.equalTo((UIScreen.main.bounds.width - 32) * (4/3))
         }
         
-        galleryButton.snp.makeConstraints { make in
+        [galleryButton, cancelButton].forEach { $0.snp.makeConstraints { make in
             make.centerY.equalTo(shutterButton)
             make.trailing.equalTo(shutterButton.snp.leading).offset(-70)
-        }
+        }}
         
-        shutterButton.snp.makeConstraints { make in
+        [shutterButton, saveButton].forEach { $0.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().inset(70)
-        }
+        }}
         
-        changeButton.snp.makeConstraints { make in
+        [changeButton, uploadButton].forEach { $0.snp.makeConstraints { make in
             make.centerY.equalTo(shutterButton)
             make.leading.equalTo(shutterButton.snp.trailing).offset(70)
-        }
+        }}
     }
     
 }
