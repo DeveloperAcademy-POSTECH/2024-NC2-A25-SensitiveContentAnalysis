@@ -36,6 +36,7 @@ final class CameraViewController: UIViewController {
         imageView.layer.cornerRadius = 12
         imageView.clipsToBounds = true
         imageView.isHidden = true
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
@@ -105,13 +106,16 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
         
         shutterButton.rx.tap
             .bind(with: self) { owner, _ in
+//                owner.captureSession.stopRunning()
+                
                 let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
-                owner.photoOutput.capturePhoto(with: settings, delegate: self)
+                owner.photoOutput.capturePhoto(with: settings, delegate: owner)
             }
             .disposed(by: self.disposeBag)
         
         changeButton.rx.tap
             .bind(with: self) { owner, _ in
+                owner.switchCamera()
             }
             .disposed(by: self.disposeBag)
     }
@@ -121,6 +125,22 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
         let image = UIImage(data: imageData)
         previewImageView.image = image
         previewImageView.isHidden = false
+    }
+    
+    private func switchCamera() {
+        captureSession.beginConfiguration()
+        let currentInput = captureSession.inputs.first as? AVCaptureDeviceInput
+        captureSession.removeInput(currentInput!)
+
+        let newCameraDevice = currentInput?.device.position == .back ? camera(with: .front) : camera(with: .back)
+        let newVideoInput = try? AVCaptureDeviceInput(device: newCameraDevice!)
+        captureSession.addInput(newVideoInput!)
+        captureSession.commitConfiguration()
+    }
+
+    private func camera(with position: AVCaptureDevice.Position) -> AVCaptureDevice? {
+        let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: position)
+        return device
     }
     
 }
