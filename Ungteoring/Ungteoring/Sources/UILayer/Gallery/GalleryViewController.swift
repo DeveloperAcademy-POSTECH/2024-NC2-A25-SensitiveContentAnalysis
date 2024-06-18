@@ -18,7 +18,7 @@ final class GalleryViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     // MARK: UI Component
-    
+
     private lazy var galleryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -79,7 +79,10 @@ extension GalleryViewController {
         
         albumButton.rx.tap
             .bind(with: self) { owner, _ in
-                // TODO: 갤러리 오픈
+                let picker = UIImagePickerController()
+                picker.delegate = owner
+                picker.sourceType = .photoLibrary
+                owner.present(picker, animated: true, completion: nil)
             }
             .disposed(by: disposeBag)
     }
@@ -119,6 +122,23 @@ extension GalleryViewController: UICollectionViewDataSource {
         // TODO: 데이터 넣어주기
         cell.setData(with: .shutter)
         return cell
+    }
+    
+}
+
+// MARK: - UIImagePickerController Delegate
+
+extension GalleryViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.dismiss(animated: false, completion: {
+                DispatchQueue.main.async {
+                    // TODO: - 이미지 데이터 내장 데이터에 추가
+                    self.galleryCollectionView.reloadData()
+                }
+            })
+        }
     }
     
 }
