@@ -80,7 +80,9 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
     private func bindUIComponents() {
         galleryButton.rx.tap
             .bind(with: self) { owner, _ in
-                // modal로 띄우기
+                let galleryViewController = GalleryViewController(viewModel: CameraViewModel())
+                galleryViewController.modalPresentationStyle = .overFullScreen
+                owner.present(galleryViewController, animated: true)
             }
             .disposed(by: self.disposeBag)
         
@@ -208,7 +210,8 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
 extension CameraViewController {
     
     private func setUI() {
-        self.view.addSubviews([cameraView,
+        view.backgroundColor = .black
+        view.addSubviews([cameraView,
                                previewImageView,
                                galleryButton,
                                shutterButton,
@@ -217,21 +220,15 @@ extension CameraViewController {
                                saveButton,
                                uploadButton])
         
-        self.setConstraints()
+        setConstraints()
     }
     
     private func setConstraints() {
-        cameraView.snp.makeConstraints { make in
+        [cameraView, previewImageView].forEach { $0.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(16)
-            make.top.equalToSuperview().inset(112)
+            make.top.equalToSuperview().inset(110)
             make.height.equalTo((UIScreen.main.bounds.width - 32) * (4/3))
-        }
-        
-        previewImageView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.top.equalToSuperview().inset(112)
-            make.height.equalTo((UIScreen.main.bounds.width - 32) * (4/3))
-        }
+        }}
         
         [galleryButton, cancelButton].forEach { $0.snp.makeConstraints { make in
             make.centerY.equalTo(shutterButton)
