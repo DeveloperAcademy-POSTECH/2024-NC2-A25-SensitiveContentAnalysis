@@ -33,10 +33,8 @@ final class CameraViewController: UIViewController {
     
     private let previewImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = .shutter
         imageView.layer.cornerRadius = 12
         imageView.clipsToBounds = true
-        imageView.isHidden = true
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -103,7 +101,6 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
         cancelButton.rx.tap
             .bind(with: self) { owner, _ in
                 owner.viewModel.action.didCancelButtonTap.onNext(())
-                owner.previewImageView.isHidden = true
             }
             .disposed(by: disposeBag)
         
@@ -131,6 +128,9 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
                     [owner.cancelButton,
                      owner.saveButton,
                      owner.uploadButton].forEach { $0.isHidden = true }
+                    
+                    owner.previewImageView.isHidden = true
+                    owner.removeBlurEffect()
                 case .normal:
                     [owner.galleryButton,
                      owner.shutterButton,
@@ -138,6 +138,8 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
                     [owner.cancelButton,
                      owner.saveButton,
                      owner.uploadButton].forEach { $0.isHidden = false }
+                    
+                    owner.previewImageView.isHidden = false
                 case .sensitive:
                     [owner.galleryButton,
                      owner.cancelButton,
@@ -145,9 +147,30 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
                      owner.saveButton,
                      owner.changeButton,
                      owner.uploadButton].forEach { $0.isHidden = true }
+                    
+                    owner.previewImageView.isHidden = false
+                    owner.addBlurEffect()
+                    
+                    owner.makeAlert() { _ in
+                        owner.dismiss(animated: true)
+                        owner.viewModel.action.didRetryButtonTap.onNext(())
+                    }
                 }
             }
             .disposed(by: disposeBag)
+    }
+    
+    private func addBlurEffect() {
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+        visualEffectView.alpha = 1
+        visualEffectView.frame = previewImageView.bounds
+        visualEffectView.tag = 1
+        previewImageView.addSubview(visualEffectView)
+    }
+    
+    private func removeBlurEffect() {
+        let viewWithTag = view.viewWithTag(1)
+        viewWithTag?.removeFromSuperview()
     }
     
     private func setCamera() {
@@ -178,7 +201,6 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
         guard let imageData = photo.fileDataRepresentation() else { return }
         let image = UIImage(data: imageData)
         previewImageView.image = image
-        previewImageView.isHidden = false
     }
     
     private func switchCamera() {

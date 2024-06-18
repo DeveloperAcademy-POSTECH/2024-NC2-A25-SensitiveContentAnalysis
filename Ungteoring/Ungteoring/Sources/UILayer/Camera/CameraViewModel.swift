@@ -30,6 +30,7 @@ final class CameraViewModel {
         let didShutterButtonTap = PublishSubject<Void>()
         let didSaveButtonTap = PublishSubject<Void>()
         let didCancelButtonTap = PublishSubject<Void>()
+        let didRetryButtonTap = PublishSubject<Void>()
     }
     
     let state: State
@@ -55,7 +56,7 @@ extension CameraViewModel {
             .bind(with: self) { owner, _ in
                 // 데이터 sensitive 확인 후
                 owner.state.contentType.accept(.normal)
-//                owner.state.contentType.accept(.sensitive)
+                owner.state.contentType.accept(.sensitive)
             }
             .disposed(by: disposeBag)
         
@@ -66,6 +67,12 @@ extension CameraViewModel {
             .disposed(by: disposeBag)
         
         action.didCancelButtonTap
+            .bind(with: self) { owner, _ in
+                owner.state.contentType.accept(.noData)
+            }
+            .disposed(by: disposeBag)
+        
+        action.didRetryButtonTap
             .bind(with: self) { owner, _ in
                 owner.state.contentType.accept(.noData)
             }

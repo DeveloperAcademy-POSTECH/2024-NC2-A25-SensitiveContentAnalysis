@@ -113,7 +113,6 @@ extension GalleryViewController : PHPickerViewControllerDelegate {
             if itemProvider.canLoadObject(ofClass: UIImage.self) {
                 itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
                     guard let self = self, let image = image as? UIImage else { return }
-                    print("이미지 선택완료")
                     DispatchQueue.main.async {
                         self.galleryCollectionView.reloadData()
                     }
