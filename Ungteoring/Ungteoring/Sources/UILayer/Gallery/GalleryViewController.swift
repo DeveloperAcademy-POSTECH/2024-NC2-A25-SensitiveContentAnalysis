@@ -8,6 +8,7 @@
 import UIKit
 
 import RxSwift
+import RxCocoa
 
 final class GalleryViewController: UIViewController {
     
@@ -23,7 +24,7 @@ final class GalleryViewController: UIViewController {
         layout.scrollDirection = .vertical
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.contentInset = .init(top: 110, left: 16, bottom: 110, right: 16)
+        collectionView.contentInset = .init(top: 16, left: 16, bottom: 80, right: 16)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -34,6 +35,23 @@ final class GalleryViewController: UIViewController {
         return collectionView
     }()
     
+    private let cameraButton: UIButton = {
+        let button = UIButton()
+        button.setImage(.camera, for: .normal)
+        return button
+    }()
+    
+    private lazy var gradientBottomView: UIView = {
+        let view = UIView()
+
+        let gradient = CAGradientLayer()
+        gradient.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 110)
+        gradient.colors = [UIColor.black.withAlphaComponent(0.0).cgColor, UIColor.black.cgColor]
+        view.layer.insertSublayer(gradient, at: 0)
+
+        return view
+    }()
+    
     // MARK: Initailizer
     
     init(viewModel: CameraViewModel) {
@@ -41,10 +59,25 @@ final class GalleryViewController: UIViewController {
         
         super.init(nibName: nil, bundle: nil)
         setUI()
+        bindUIComponents()
     }
     
     required init?(coder: NSCoder) {
         fatalError()
+    }
+    
+}
+
+// MARK: - Methods
+
+extension GalleryViewController {
+    
+    private func bindUIComponents() {
+        cameraButton.rx.tap
+            .bind(with: self) { owner, _ in
+                owner.dismiss(animated: true)
+            }
+            .disposed(by: disposeBag)
     }
     
 }
@@ -92,7 +125,9 @@ extension GalleryViewController {
     
     private func setUI() {
         view.backgroundColor = .black
-        view.addSubviews([galleryCollectionView])
+        view.addSubviews([galleryCollectionView,
+                          gradientBottomView,
+                          cameraButton])
         
         setConstraints()
     }
@@ -100,6 +135,17 @@ extension GalleryViewController {
     private func setConstraints() {
         galleryCollectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+        
+        cameraButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().inset(44)
+        }
+        
+        gradientBottomView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.height.equalTo(110)
         }
     }
     
