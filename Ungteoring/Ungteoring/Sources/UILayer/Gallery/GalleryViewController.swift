@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PhotosUI
 
 import RxSwift
 import RxCocoa
@@ -68,7 +69,7 @@ final class GalleryViewController: UIViewController {
 
 // MARK: - Methods
 
-extension GalleryViewController {
+extension GalleryViewController  {
     
     private func bindUIComponents() {
         cameraButton.rx.tap
@@ -79,14 +80,47 @@ extension GalleryViewController {
         
         albumButton.rx.tap
             .bind(with: self) { owner, _ in
-                let picker = UIImagePickerController()
-                picker.delegate = owner
-                picker.sourceType = .photoLibrary
-                owner.present(picker, animated: true, completion: nil)
+                owner.openPhotoLibrary()
             }
             .disposed(by: disposeBag)
     }
     
+    private func openPhotoLibrary() {
+        var config = PHPickerConfiguration()
+        config.filter = .images
+        config.selectionLimit = 1
+        
+        let imagePicker = PHPickerViewController(configuration: config)
+        imagePicker.delegate = self
+        
+        self.present(imagePicker, animated: true)
+    }
+    
+}
+
+// MARK: - PHPickerViewControllerDelegate
+
+extension GalleryViewController : PHPickerViewControllerDelegate {
+
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        
+        let itemProviders = results.map(\.itemProvider)
+        
+        if !itemProviders.isEmpty {
+            guard let itemProvider = itemProviders.first else { return }
+            
+            if itemProvider.canLoadObject(ofClass: UIImage.self) {
+                itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
+                    guard let self = self, let image = image as? UIImage else { return }
+                    print("이미지 선택완료")
+                    DispatchQueue.main.async {
+                        self.galleryCollectionView.reloadData()
+                    }
+                }
+            }
+        }
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -135,20 +169,20 @@ extension GalleryViewController: UICollectionViewDataSource {
 
 // MARK: - UIImagePickerController Delegate
 
-extension GalleryViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate{
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            self.dismiss(animated: false, completion: {
-                DispatchQueue.main.async {
-                    // TODO: - 이미지 데이터 내장 데이터에 추가
-                    self.galleryCollectionView.reloadData()
-                }
-            })
-        }
-    }
-    
-}
+//extension GalleryViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+//    
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+//            self.dismiss(animated: false, completion: {
+//                DispatchQueue.main.async {
+//                    // TODO: - 이미지 데이터 내장 데이터에 추가
+//                    self.galleryCollectionView.reloadData()
+//                }
+//            })
+//        }
+//    }
+//    
+//}
 
 // MARK: - UI
 
