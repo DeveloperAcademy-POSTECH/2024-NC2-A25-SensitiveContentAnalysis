@@ -1,21 +1,21 @@
 //
-//  SensitiveAnalyzer.swift
+//  SensitivityAnalyzer.swift
 //  Ungteoring
 //
-//  Created by Juhyeon Byun on 6/18/24.
+//  Created by Juhyeon Byun on 6/19/24.
 //
 
 import UIKit
 import SensitiveContentAnalysis
 
-final class SensitiveAnalyzer {
+final class SensitivityAnalyzer {
     
     // MARK: Properties
     
-    static var shared = SensitiveAnalyzer()
+    static var shared = SensitivityAnalyzer()
     private let analyzer = SCSensitivityAnalyzer()
     
-    // MARK: Methods
+    // MARK: - Methods
     
     func checkImage(with image: UIImage) async -> ImageResult {
         let policy = analyzer.analysisPolicy

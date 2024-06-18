@@ -27,7 +27,7 @@ final class CameraViewModel {
     }
     
     struct Action {
-        let didShutterButtonTap = PublishSubject<Void>()
+        let didShutterButtonTap = PublishRelay<UIImage>()
         let didSaveButtonTap = PublishSubject<Void>()
         let didCancelButtonTap = PublishSubject<Void>()
         let didRetryButtonTap = PublishSubject<Void>()
@@ -53,10 +53,19 @@ extension CameraViewModel {
     
     private func bindAction() {
         action.didShutterButtonTap
-            .bind(with: self) { owner, _ in
-                // 데이터 sensitive 확인 후
-                owner.state.contentType.accept(.normal)
-                owner.state.contentType.accept(.sensitive)
+            .bind(with: self) { owner, image in
+                Task { @MainActor in
+                    let result = await SensitivityAnalyzer.shared.checkImage(with: image)
+                    
+                    switch result {
+                    case .safe:
+                        owner.state.contentType.accept(.normal)
+                    case .sensitive:
+                        owner.state.contentType.accept(.sensitive)
+                    case .error:
+                        owner.state.contentType.accept(.noData)
+                    }
+                }
             }
             .disposed(by: disposeBag)
         

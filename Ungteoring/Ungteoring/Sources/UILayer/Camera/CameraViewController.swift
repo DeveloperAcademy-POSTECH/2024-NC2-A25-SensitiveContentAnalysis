@@ -88,7 +88,6 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
             .bind(with: self) { owner, _ in
                 let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
                 owner.photoOutput.capturePhoto(with: settings, delegate: owner)
-                owner.viewModel.action.didShutterButtonTap.onNext(())
             }
             .disposed(by: disposeBag)
         
@@ -120,40 +119,42 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
     private func bindViewModel() {
         viewModel.state.contentType
             .bind(with: self) { owner, type in
-                switch type {
-                case .noData:
-                    [owner.galleryButton,
-                     owner.shutterButton,
-                     owner.changeButton].forEach { $0.isHidden = false }
-                    [owner.cancelButton,
-                     owner.saveButton,
-                     owner.uploadButton].forEach { $0.isHidden = true }
-                    
-                    owner.previewImageView.isHidden = true
-                    owner.removeBlurEffect()
-                case .normal:
-                    [owner.galleryButton,
-                     owner.shutterButton,
-                     owner.changeButton].forEach { $0.isHidden = true }
-                    [owner.cancelButton,
-                     owner.saveButton,
-                     owner.uploadButton].forEach { $0.isHidden = false }
-                    
-                    owner.previewImageView.isHidden = false
-                case .sensitive:
-                    [owner.galleryButton,
-                     owner.cancelButton,
-                     owner.shutterButton,
-                     owner.saveButton,
-                     owner.changeButton,
-                     owner.uploadButton].forEach { $0.isHidden = true }
-                    
-                    owner.previewImageView.isHidden = false
-                    owner.addBlurEffect()
-                    
-                    owner.makeAlert() { _ in
-                        owner.dismiss(animated: true)
-                        owner.viewModel.action.didRetryButtonTap.onNext(())
+                DispatchQueue.main.async {
+                    switch type {
+                    case .noData:
+                        [owner.galleryButton,
+                         owner.shutterButton,
+                         owner.changeButton].forEach { $0.isHidden = false }
+                        [owner.cancelButton,
+                         owner.saveButton,
+                         owner.uploadButton].forEach { $0.isHidden = true }
+                        
+                        owner.previewImageView.isHidden = true
+                        owner.removeBlurEffect()
+                    case .normal:
+                        [owner.galleryButton,
+                         owner.shutterButton,
+                         owner.changeButton].forEach { $0.isHidden = true }
+                        [owner.cancelButton,
+                         owner.saveButton,
+                         owner.uploadButton].forEach { $0.isHidden = false }
+                        
+                        owner.previewImageView.isHidden = false
+                    case .sensitive:
+                        [owner.galleryButton,
+                         owner.cancelButton,
+                         owner.shutterButton,
+                         owner.saveButton,
+                         owner.changeButton,
+                         owner.uploadButton].forEach { $0.isHidden = true }
+                        
+                        owner.previewImageView.isHidden = false
+                        owner.addBlurEffect()
+                        
+                        owner.makeAlert() { _ in
+                            owner.dismiss(animated: true)
+                            owner.viewModel.action.didRetryButtonTap.onNext(())
+                        }
                     }
                 }
             }
@@ -198,9 +199,10 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
     }
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-        guard let imageData = photo.fileDataRepresentation() else { return }
-        let image = UIImage(data: imageData)
+        guard let imageData = photo.fileDataRepresentation(),
+              let image = UIImage(data: imageData) else { return }
         previewImageView.image = image
+        viewModel.action.didShutterButtonTap.accept(image)
     }
     
     private func switchCamera() {
