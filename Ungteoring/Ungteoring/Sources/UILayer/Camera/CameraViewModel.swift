@@ -57,19 +57,19 @@ extension CameraViewModel {
                 owner.state.contentType.accept(.normal)
 //                owner.state.contentType.accept(.sensitive)
             }
-            .disposed(by: self.disposeBag)
+            .disposed(by: disposeBag)
         
         action.didSaveButtonTap
             .bind(with: self) { owner, _ in
                 // data 저장
             }
-            .disposed(by: self.disposeBag)
+            .disposed(by: disposeBag)
         
         action.didCancelButtonTap
             .bind(with: self) { owner, _ in
                 owner.state.contentType.accept(.noData)
             }
-            .disposed(by: self.disposeBag)
+            .disposed(by: disposeBag)
     }
     
 }

@@ -84,7 +84,7 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
                 galleryViewController.modalPresentationStyle = .overFullScreen
                 owner.present(galleryViewController, animated: true)
             }
-            .disposed(by: self.disposeBag)
+            .disposed(by: disposeBag)
         
         shutterButton.rx.tap
             .bind(with: self) { owner, _ in
@@ -92,32 +92,32 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
                 owner.photoOutput.capturePhoto(with: settings, delegate: owner)
                 owner.viewModel.action.didShutterButtonTap.onNext(())
             }
-            .disposed(by: self.disposeBag)
+            .disposed(by: disposeBag)
         
         changeButton.rx.tap
             .bind(with: self) { owner, _ in
                 owner.switchCamera()
             }
-            .disposed(by: self.disposeBag)
+            .disposed(by: disposeBag)
         
         cancelButton.rx.tap
             .bind(with: self) { owner, _ in
                 owner.viewModel.action.didCancelButtonTap.onNext(())
                 owner.previewImageView.isHidden = true
             }
-            .disposed(by: self.disposeBag)
+            .disposed(by: disposeBag)
         
         saveButton.rx.tap
             .bind(with: self) { owner, _ in
                 owner.viewModel.action.didSaveButtonTap.onNext(())
             }
-            .disposed(by: self.disposeBag)
+            .disposed(by: disposeBag)
         
         uploadButton.rx.tap
             .bind(with: self) { owner, _ in
                 // 공유하기
             }
-            .disposed(by: self.disposeBag)
+            .disposed(by: disposeBag)
     }
     
     private func bindViewModel() {
@@ -147,7 +147,7 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
                      owner.uploadButton].forEach { $0.isHidden = true }
                 }
             }
-            .disposed(by: self.disposeBag)
+            .disposed(by: disposeBag)
     }
     
     private func makeButton(image: UIImage) -> UIButton {
