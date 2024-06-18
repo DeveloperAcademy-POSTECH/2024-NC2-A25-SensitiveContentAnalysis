@@ -22,7 +22,7 @@ final class GalleryViewModel {
     
     struct Action {
         let didCameraButtonTap = PublishSubject<Void>()
-        let didAddButtonTap = PublishSubject<Void>()
+        let didAlbumButtonTap = PublishSubject<Void>()
     }
     
     let state: State

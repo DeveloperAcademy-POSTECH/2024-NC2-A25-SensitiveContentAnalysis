@@ -150,12 +150,6 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
             .disposed(by: disposeBag)
     }
     
-    private func makeButton(image: UIImage) -> UIButton {
-        let button = UIButton()
-        button.setImage(image, for: .normal)
-        return button
-    }
-    
     private func setCamera() {
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }
         

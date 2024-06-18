@@ -35,18 +35,16 @@ final class GalleryViewController: UIViewController {
         return collectionView
     }()
     
-    private let cameraButton: UIButton = {
-        let button = UIButton()
-        button.setImage(.camera, for: .normal)
-        return button
-    }()
+    private lazy var cameraButton = makeButton(image: .camera)
+    private lazy var albumButton = makeButton(image: .album)
     
     private lazy var gradientBottomView: UIView = {
         let view = UIView()
 
         let gradient = CAGradientLayer()
         gradient.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 110)
-        gradient.colors = [UIColor.black.withAlphaComponent(0.0).cgColor, UIColor.black.cgColor]
+        gradient.colors = [UIColor.black.withAlphaComponent(0.0).cgColor,
+                           UIColor.black.cgColor]
         view.layer.insertSublayer(gradient, at: 0)
 
         return view
@@ -76,6 +74,12 @@ extension GalleryViewController {
         cameraButton.rx.tap
             .bind(with: self) { owner, _ in
                 owner.dismiss(animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        albumButton.rx.tap
+            .bind(with: self) { owner, _ in
+                // TODO: 갤러리 오픈
             }
             .disposed(by: disposeBag)
     }
@@ -127,7 +131,8 @@ extension GalleryViewController {
         view.backgroundColor = .black
         view.addSubviews([galleryCollectionView,
                           gradientBottomView,
-                          cameraButton])
+                          cameraButton,
+                          albumButton])
         
         setConstraints()
     }
@@ -137,15 +142,20 @@ extension GalleryViewController {
             make.edges.equalToSuperview()
         }
         
+        gradientBottomView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.height.equalTo(110)
+        }
+        
         cameraButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().inset(44)
         }
         
-        gradientBottomView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.height.equalTo(110)
+        albumButton.snp.makeConstraints { make in
+            make.centerY.equalTo(cameraButton)
+            make.leading.equalTo(cameraButton.snp.trailing).offset(70)
         }
     }
     

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2229CC602C217FDA00FDD86A /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CC5F2C217FDA00FDD86A /* UIViewController+.swift */; };
 		22EAC2DA2C214F4200B40107 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EAC2D92C214F4200B40107 /* GalleryViewController.swift */; };
 		22EAC2DC2C214F4A00B40107 /* GalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EAC2DB2C214F4A00B40107 /* GalleryViewModel.swift */; };
 		22EAC2DF2C2152BF00B40107 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EAC2DE2C2152BF00B40107 /* GalleryCollectionViewCell.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2229CC5F2C217FDA00FDD86A /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		22EAC2D92C214F4200B40107 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		22EAC2DB2C214F4A00B40107 /* GalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewModel.swift; sourceTree = "<group>"; };
 		22EAC2DE2C2152BF00B40107 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				22F7AB412C2034D300F25212 /* UIView+.swift */,
 				22F7AB432C20350100F25212 /* UILabel+.swift */,
 				22F7AB452C20356B00F25212 /* UICollectionReusableView+.swift */,
+				2229CC5F2C217FDA00FDD86A /* UIViewController+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -248,6 +251,7 @@
 			files = (
 				22F7AB482C20359700F25212 /* Date+.swift in Sources */,
 				22EAC2DC2C214F4A00B40107 /* GalleryViewModel.swift in Sources */,
+				2229CC602C217FDA00FDD86A /* UIViewController+.swift in Sources */,
 				22F7AB422C2034D300F25212 /* UIView+.swift in Sources */,
 				22F7AB462C20356B00F25212 /* UICollectionReusableView+.swift in Sources */,
 				22F7AB2C2C2029E200F25212 /* CameraViewController.swift in Sources */,
