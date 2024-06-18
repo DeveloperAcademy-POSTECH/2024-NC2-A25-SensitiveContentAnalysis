@@ -124,6 +124,13 @@ extension GalleryViewController: UICollectionViewDataSource {
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // TODO: 데이터 indexPath로 찾아서 보내기
+        let detailViewController = DetailViewController(viewModel: DetailViewModel(image: .camera))
+        detailViewController.modalPresentationStyle = .overFullScreen
+        self.present(detailViewController, animated: true)
+    }
+    
 }
 
 // MARK: - UIImagePickerController Delegate

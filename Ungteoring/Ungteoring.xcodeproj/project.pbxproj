@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		2229CC602C217FDA00FDD86A /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CC5F2C217FDA00FDD86A /* UIViewController+.swift */; };
+		2229CC642C21A26B00FDD86A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CC632C21A26B00FDD86A /* DetailViewController.swift */; };
+		2229CC662C21A27100FDD86A /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CC652C21A27100FDD86A /* DetailViewModel.swift */; };
+		2229CC682C21A4AC00FDD86A /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CC672C21A4AC00FDD86A /* UIFont+.swift */; };
+		2229CC6F2C21A4C600FDD86A /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2229CC6B2C21A4C600FDD86A /* Pretendard-Regular.otf */; };
+		2229CC702C21A4C600FDD86A /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2229CC6C2C21A4C600FDD86A /* Pretendard-SemiBold.otf */; };
+		2229CC732C21A61E00FDD86A /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CC722C21A61E00FDD86A /* UIStackView+.swift */; };
 		22EAC2DA2C214F4200B40107 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EAC2D92C214F4200B40107 /* GalleryViewController.swift */; };
 		22EAC2DC2C214F4A00B40107 /* GalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EAC2DB2C214F4A00B40107 /* GalleryViewModel.swift */; };
 		22EAC2DF2C2152BF00B40107 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EAC2DE2C2152BF00B40107 /* GalleryCollectionViewCell.swift */; };
@@ -28,6 +34,12 @@
 
 /* Begin PBXFileReference section */
 		2229CC5F2C217FDA00FDD86A /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		2229CC632C21A26B00FDD86A /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		2229CC652C21A27100FDD86A /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		2229CC672C21A4AC00FDD86A /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
+		2229CC6B2C21A4C600FDD86A /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
+		2229CC6C2C21A4C600FDD86A /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		2229CC722C21A61E00FDD86A /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		22EAC2D92C214F4200B40107 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		22EAC2DB2C214F4A00B40107 /* GalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewModel.swift; sourceTree = "<group>"; };
 		22EAC2DE2C2152BF00B40107 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -60,6 +72,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2229CC612C21A20E00FDD86A /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				2229CC632C21A26B00FDD86A /* DetailViewController.swift */,
+				2229CC652C21A27100FDD86A /* DetailViewModel.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		2229CC692C21A4C600FDD86A /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				2229CC6B2C21A4C600FDD86A /* Pretendard-Regular.otf */,
+				2229CC6C2C21A4C600FDD86A /* Pretendard-SemiBold.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		22EAC2D82C214F2D00B40107 /* Gallery */ = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +148,7 @@
 		22F7AB3C2C202C2400F25212 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2229CC692C21A4C600FDD86A /* Fonts */,
 				22F7AB302C2029E400F25212 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -145,6 +176,7 @@
 			children = (
 				22F7AB542C2039DD00F25212 /* Camera */,
 				22EAC2D82C214F2D00B40107 /* Gallery */,
+				2229CC612C21A20E00FDD86A /* Detail */,
 			);
 			path = UILayer;
 			sourceTree = "<group>";
@@ -157,6 +189,8 @@
 				22F7AB432C20350100F25212 /* UILabel+.swift */,
 				22F7AB452C20356B00F25212 /* UICollectionReusableView+.swift */,
 				2229CC5F2C217FDA00FDD86A /* UIViewController+.swift */,
+				2229CC672C21A4AC00FDD86A /* UIFont+.swift */,
+				2229CC722C21A61E00FDD86A /* UIStackView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -239,6 +273,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				22F7AB312C2029E400F25212 /* Assets.xcassets in Resources */,
+				2229CC6F2C21A4C600FDD86A /* Pretendard-Regular.otf in Resources */,
+				2229CC702C21A4C600FDD86A /* Pretendard-SemiBold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,14 +285,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2229CC642C21A26B00FDD86A /* DetailViewController.swift in Sources */,
 				22F7AB482C20359700F25212 /* Date+.swift in Sources */,
 				22EAC2DC2C214F4A00B40107 /* GalleryViewModel.swift in Sources */,
 				2229CC602C217FDA00FDD86A /* UIViewController+.swift in Sources */,
 				22F7AB422C2034D300F25212 /* UIView+.swift in Sources */,
 				22F7AB462C20356B00F25212 /* UICollectionReusableView+.swift in Sources */,
 				22F7AB2C2C2029E200F25212 /* CameraViewController.swift in Sources */,
+				2229CC732C21A61E00FDD86A /* UIStackView+.swift in Sources */,
+				2229CC682C21A4AC00FDD86A /* UIFont+.swift in Sources */,
 				22F7AB442C20350100F25212 /* UILabel+.swift in Sources */,
 				22F7AB562C2039EB00F25212 /* CameraViewModel.swift in Sources */,
+				2229CC662C21A27100FDD86A /* DetailViewModel.swift in Sources */,
 				22EAC2DA2C214F4200B40107 /* GalleryViewController.swift in Sources */,
 				22EAC2DF2C2152BF00B40107 /* GalleryCollectionViewCell.swift in Sources */,
 				22F7AB282C2029E200F25212 /* AppDelegate.swift in Sources */,
