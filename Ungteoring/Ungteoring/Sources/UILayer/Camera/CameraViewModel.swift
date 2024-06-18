@@ -28,7 +28,7 @@ final class CameraViewModel {
     
     struct Action {
         let didShutterButtonTap = PublishRelay<UIImage>()
-        let didSaveButtonTap = PublishSubject<Void>()
+        let didSaveButtonTap = PublishRelay<UIImage>()
         let didCancelButtonTap = PublishSubject<Void>()
         let didRetryButtonTap = PublishSubject<Void>()
     }
@@ -70,8 +70,8 @@ extension CameraViewModel {
             .disposed(by: disposeBag)
         
         action.didSaveButtonTap
-            .bind(with: self) { owner, _ in
-                // data 저장
+            .bind(with: self) { owner, image in
+                // TODO: - 데이터 추가
             }
             .disposed(by: disposeBag)
         

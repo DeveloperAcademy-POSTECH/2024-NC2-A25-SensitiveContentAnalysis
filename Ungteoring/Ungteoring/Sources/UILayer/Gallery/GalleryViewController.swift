@@ -15,7 +15,7 @@ final class GalleryViewController: UIViewController {
     
     // MARK: Properties
     
-    private let viewModel: CameraViewModel
+    private let viewModel: GalleryViewModel
     private let disposeBag = DisposeBag()
     
     // MARK: UI Component
@@ -53,12 +53,13 @@ final class GalleryViewController: UIViewController {
     
     // MARK: Initailizer
     
-    init(viewModel: CameraViewModel) {
+    init(viewModel: GalleryViewModel) {
         self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
         setUI()
         bindUIComponents()
+//        bindViewModel()
     }
     
     required init?(coder: NSCoder) {
@@ -70,6 +71,14 @@ final class GalleryViewController: UIViewController {
 // MARK: - Methods
 
 extension GalleryViewController  {
+    
+    private func bindViewModel() {
+//        viewModel.state.photos
+//            .bind(with: self) { owner, photos in
+//                owner.galleryCollectionView.reloadData()
+//            }
+//            .disposed(by: disposeBag)
+    }
     
     private func bindUIComponents() {
         cameraButton.rx.tap
@@ -113,9 +122,6 @@ extension GalleryViewController : PHPickerViewControllerDelegate {
             if itemProvider.canLoadObject(ofClass: UIImage.self) {
                 itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
                     guard let self = self, let image = image as? UIImage else { return }
-                    DispatchQueue.main.async {
-                        self.galleryCollectionView.reloadData()
-                    }
                 }
             }
         }
@@ -146,42 +152,25 @@ extension GalleryViewController: UICollectionViewDelegateFlowLayout {
 extension GalleryViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return viewModel.state.photos.value.count
         return 20
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GalleryCollectionViewCell.className, for: indexPath) as? GalleryCollectionViewCell else { return UICollectionViewCell() }
         
-        // TODO: 데이터 넣어주기
-        cell.setData(with: .shutter)
+//        cell.setData(with: viewModel.state.photos.value[indexPath.row].image)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: 데이터 indexPath로 찾아서 보내기
-        let detailViewController = DetailViewController(viewModel: DetailViewModel(image: .camera))
+//        let detailViewController = DetailViewController(viewModel: DetailViewModel(image: viewModel.state.photos.value[indexPath.row].image))
+        let detailViewController = DetailViewController(viewModel: DetailViewModel(image: .album))
         detailViewController.modalPresentationStyle = .overFullScreen
         self.present(detailViewController, animated: true)
     }
     
 }
-
-// MARK: - UIImagePickerController Delegate
-
-//extension GalleryViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate{
-//    
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-//            self.dismiss(animated: false, completion: {
-//                DispatchQueue.main.async {
-//                    // TODO: - 이미지 데이터 내장 데이터에 추가
-//                    self.galleryCollectionView.reloadData()
-//                }
-//            })
-//        }
-//    }
-//    
-//}
 
 // MARK: - UI
 

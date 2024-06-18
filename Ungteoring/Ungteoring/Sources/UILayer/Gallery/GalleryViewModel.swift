@@ -17,7 +17,7 @@ final class GalleryViewModel {
     private let disposeBag = DisposeBag()
     
     struct State {
-//        let photos = BehaviorRelay<>
+//        let photos = BehaviorRelay<[Photo]>(value: [])
     }
     
     struct Action {

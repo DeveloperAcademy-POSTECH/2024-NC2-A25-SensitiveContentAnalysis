@@ -78,7 +78,7 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
     private func bindUIComponents() {
         galleryButton.rx.tap
             .bind(with: self) { owner, _ in
-                let galleryViewController = GalleryViewController(viewModel: CameraViewModel())
+                let galleryViewController = GalleryViewController(viewModel: GalleryViewModel())
                 galleryViewController.modalPresentationStyle = .overFullScreen
                 owner.present(galleryViewController, animated: true)
             }
@@ -105,7 +105,7 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
         
         saveButton.rx.tap
             .bind(with: self) { owner, _ in
-                owner.viewModel.action.didSaveButtonTap.onNext(())
+//                owner.viewModel.action.didSaveButtonTap.onNext(())
             }
             .disposed(by: disposeBag)
         
