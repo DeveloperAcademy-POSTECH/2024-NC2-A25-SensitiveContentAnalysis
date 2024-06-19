@@ -10,7 +10,7 @@ import UIKit
 extension UIFont {
     
     static func pretendardB(_ size: CGFloat) -> UIFont {
-        return UIFont(name: "Pretendard-SemiBold", size: size)!
+        return UIFont(name: "Pretendard-Bold", size: size)!
     }
     
     static func pretendardR(_ size: CGFloat) -> UIFont {

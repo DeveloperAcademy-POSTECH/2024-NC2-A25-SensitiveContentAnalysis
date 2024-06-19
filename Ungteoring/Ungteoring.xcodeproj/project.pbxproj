@@ -12,7 +12,6 @@
 		2229CC662C21A27100FDD86A /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CC652C21A27100FDD86A /* DetailViewModel.swift */; };
 		2229CC682C21A4AC00FDD86A /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CC672C21A4AC00FDD86A /* UIFont+.swift */; };
 		2229CC6F2C21A4C600FDD86A /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2229CC6B2C21A4C600FDD86A /* Pretendard-Regular.otf */; };
-		2229CC702C21A4C600FDD86A /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2229CC6C2C21A4C600FDD86A /* Pretendard-SemiBold.otf */; };
 		2229CC732C21A61E00FDD86A /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CC722C21A61E00FDD86A /* UIStackView+.swift */; };
 		2229CC7B2C21B62700FDD86A /* ImageResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CC7A2C21B62700FDD86A /* ImageResult.swift */; };
 		2229CC7F2C21E5F200FDD86A /* SensitivityAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CC7E2C21E5F200FDD86A /* SensitivityAnalyzer.swift */; };
@@ -26,6 +25,7 @@
 		2229CCB92C22BDA500FDD86A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CCB82C22BDA500FDD86A /* OnboardingViewController.swift */; };
 		2229CCBB2C22BF6E00FDD86A /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CCBA2C22BF6E00FDD86A /* OnboardingViewModel.swift */; };
 		2229CCC02C22FA0100FDD86A /* splash.gif in Resources */ = {isa = PBXBuildFile; fileRef = 2229CCBF2C22FA0100FDD86A /* splash.gif */; };
+		2229CCC22C23086300FDD86A /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2229CCC12C23086300FDD86A /* Pretendard-Bold.otf */; };
 		22EAC2DA2C214F4200B40107 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EAC2D92C214F4200B40107 /* GalleryViewController.swift */; };
 		22EAC2DC2C214F4A00B40107 /* GalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EAC2DB2C214F4A00B40107 /* GalleryViewModel.swift */; };
 		22EAC2DF2C2152BF00B40107 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EAC2DE2C2152BF00B40107 /* GalleryCollectionViewCell.swift */; };
@@ -50,7 +50,6 @@
 		2229CC652C21A27100FDD86A /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		2229CC672C21A4AC00FDD86A /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		2229CC6B2C21A4C600FDD86A /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
-		2229CC6C2C21A4C600FDD86A /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		2229CC722C21A61E00FDD86A /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		2229CC7A2C21B62700FDD86A /* ImageResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageResult.swift; sourceTree = "<group>"; };
 		2229CC7E2C21E5F200FDD86A /* SensitivityAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensitivityAnalyzer.swift; sourceTree = "<group>"; };
@@ -63,6 +62,7 @@
 		2229CCB82C22BDA500FDD86A /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		2229CCBA2C22BF6E00FDD86A /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		2229CCBF2C22FA0100FDD86A /* splash.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = splash.gif; sourceTree = "<group>"; };
+		2229CCC12C23086300FDD86A /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		22EAC2D92C214F4200B40107 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		22EAC2DB2C214F4A00B40107 /* GalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewModel.swift; sourceTree = "<group>"; };
 		22EAC2DE2C2152BF00B40107 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -109,7 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				2229CC6B2C21A4C600FDD86A /* Pretendard-Regular.otf */,
-				2229CC6C2C21A4C600FDD86A /* Pretendard-SemiBold.otf */,
+				2229CCC12C23086300FDD86A /* Pretendard-Bold.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -350,9 +350,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				22F7AB312C2029E400F25212 /* Assets.xcassets in Resources */,
+				2229CCC22C23086300FDD86A /* Pretendard-Bold.otf in Resources */,
 				2229CCC02C22FA0100FDD86A /* splash.gif in Resources */,
 				2229CC6F2C21A4C600FDD86A /* Pretendard-Regular.otf in Resources */,
-				2229CC702C21A4C600FDD86A /* Pretendard-SemiBold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
