@@ -130,7 +130,20 @@ extension GalleryViewController : PHPickerViewControllerDelegate {
             if itemProvider.canLoadObject(ofClass: UIImage.self) {
                 itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
                     guard let self = self, let image = image as? UIImage else { return }
-                    // 이미지 확인 후 저장
+                    Task { @MainActor in
+                        let result = await SensitivityAnalyzer.shared.checkImage(with: image)
+                        
+                        switch result {
+                        case .safe:
+                            guard let imageData = image.pngData() else { return }
+                            CoreDataManager.shared.savePhoto(imageData: imageData)
+                            self.viewModel.fetchPhotos()
+                        case .sensitive:
+                            self.makeAlert()
+                        case .error:
+                            print("error")
+                        }
+                    }
                 }
             }
         }
