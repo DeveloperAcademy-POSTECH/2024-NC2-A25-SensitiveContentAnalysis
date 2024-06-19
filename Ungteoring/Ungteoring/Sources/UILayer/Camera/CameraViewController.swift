@@ -80,20 +80,20 @@ final class CameraViewController: UIViewController {
 // MARK: - Methods
 
 extension CameraViewController: AVCapturePhotoCaptureDelegate {
-
+    
     private func showSplash() {
         let splashViewController = SplashViewController()
         splashViewController.modalPresentationStyle = .overFullScreen
         
-//        if StorageManager.isFirstTime() {
-            let onboardingViewController = OnboardingViewController(viewModel: OnboardingViewModel())
-            onboardingViewController.modalPresentationStyle = .overFullScreen
-            present(onboardingViewController, animated: false) {
-                self.presentedViewController?.present(splashViewController, animated: false)
-            }
-//        } else {
-//            present(splashViewController, animated: false)
-//        }
+        //        if StorageManager.isFirstTime() {
+        let onboardingViewController = OnboardingViewController(viewModel: OnboardingViewModel())
+        onboardingViewController.modalPresentationStyle = .overFullScreen
+        present(onboardingViewController, animated: false) {
+            self.presentedViewController?.present(splashViewController, animated: false)
+        }
+        //        } else {
+        //            present(splashViewController, animated: false)
+        //        }
     }
     
     private func bindUIComponents() {
@@ -150,7 +150,7 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
                         [owner.cancelButton,
                          owner.saveButton,
                          owner.uploadButton].forEach { $0.isHidden = true }
-                                        
+                        
                         DispatchQueue.global(qos: .background).async {
                             owner.captureSession.startRunning()
                         }
@@ -260,13 +260,13 @@ extension CameraViewController {
     private func setUI() {
         view.backgroundColor = .black
         view.addSubviews([cameraView,
-                               previewImageView,
-                               galleryButton,
-                               shutterButton,
-                               changeButton,
-                               cancelButton,
-                               saveButton,
-                               uploadButton])
+                          previewImageView,
+                          galleryButton,
+                          shutterButton,
+                          changeButton,
+                          cancelButton,
+                          saveButton,
+                          uploadButton])
         
         setConstraints()
     }

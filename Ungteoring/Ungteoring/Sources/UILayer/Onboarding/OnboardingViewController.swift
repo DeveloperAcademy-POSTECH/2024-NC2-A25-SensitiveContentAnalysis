@@ -72,6 +72,7 @@ final class OnboardingViewController: UIViewController {
         setUI()
         bindUIComponents()
         bindViewModel()
+        setNotification()
     }
     
 }
@@ -92,7 +93,7 @@ extension OnboardingViewController {
                         owner.nextButton.setTitle("설정으로 이동", for: .normal)
                     }
                 } else {
-                    owner.dismiss(animated: false)
+                    UIApplication.shared.open(NSURL(string:"App-prefs:root=Privacy")! as URL)
                 }
             }
             .disposed(by: disposeBag)
@@ -106,6 +107,21 @@ extension OnboardingViewController {
                 owner.mainImageView.image = owner.viewModel.state.images[page]
                 owner.mainTitleLabel.text = owner.viewModel.state.mainTitles[page]
                 owner.subTitleLabel.text = owner.viewModel.state.subTitles[page]
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func setNotification() {
+        NotificationCenter
+            .default
+            .rx
+            .notification(UIApplication.willEnterForegroundNotification)
+            .subscribe(on: MainScheduler.instance)
+            .subscribe(with: self) { owner, _ in
+                let isPolicyOn = SensitivityAnalyzer.shared.checkPolicy()
+                if isPolicyOn {
+                    owner.dismiss(animated: true)
+                }
             }
             .disposed(by: disposeBag)
     }

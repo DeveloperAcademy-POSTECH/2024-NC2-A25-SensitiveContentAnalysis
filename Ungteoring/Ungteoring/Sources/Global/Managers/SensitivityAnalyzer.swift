@@ -17,6 +17,11 @@ final class SensitivityAnalyzer {
     
     // MARK: - Methods
     
+    func checkPolicy() -> Bool {
+        let policy = analyzer.analysisPolicy
+        return policy != .disabled
+    }
+    
     func checkImage(with image: UIImage) async -> ImageResult {
         let policy = analyzer.analysisPolicy
         if policy == .disabled { return .error }
