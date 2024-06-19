@@ -129,7 +129,15 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
         
         uploadButton.rx.tap
             .bind(with: self) { owner, _ in
-                // 공유하기
+                guard let shareImage: UIImage = owner.previewImageView.image else { return }
+                var shareObject = [Any]()
+                
+                shareObject.append(shareImage)
+                
+                let activityViewController = UIActivityViewController(activityItems : shareObject, applicationActivities: nil)
+                activityViewController.popoverPresentationController?.sourceView = owner.view
+                
+                owner.present(activityViewController, animated: true, completion: nil)
             }
             .disposed(by: disposeBag)
     }
