@@ -16,6 +16,11 @@
 		2229CC732C21A61E00FDD86A /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CC722C21A61E00FDD86A /* UIStackView+.swift */; };
 		2229CC7B2C21B62700FDD86A /* ImageResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CC7A2C21B62700FDD86A /* ImageResult.swift */; };
 		2229CC7F2C21E5F200FDD86A /* SensitivityAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CC7E2C21E5F200FDD86A /* SensitivityAnalyzer.swift */; };
+		2229CC952C22A14300FDD86A /* Photo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2229CC932C22A14300FDD86A /* Photo.xcdatamodeld */; };
+		2229CC972C22A1A200FDD86A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CC962C22A1A200FDD86A /* CoreDataManager.swift */; };
+		2229CC9A2C22A31E00FDD86A /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 2229CC992C22A31E00FDD86A /* Lottie */; };
+		2229CC9D2C22A37500FDD86A /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CC9C2C22A37500FDD86A /* SplashViewController.swift */; };
+		2229CCAD2C22A95600FDD86A /* final.json in Resources */ = {isa = PBXBuildFile; fileRef = 2229CCAC2C22A95500FDD86A /* final.json */; };
 		22EAC2DA2C214F4200B40107 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EAC2D92C214F4200B40107 /* GalleryViewController.swift */; };
 		22EAC2DC2C214F4A00B40107 /* GalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EAC2DB2C214F4A00B40107 /* GalleryViewModel.swift */; };
 		22EAC2DF2C2152BF00B40107 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EAC2DE2C2152BF00B40107 /* GalleryCollectionViewCell.swift */; };
@@ -44,6 +49,10 @@
 		2229CC722C21A61E00FDD86A /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		2229CC7A2C21B62700FDD86A /* ImageResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageResult.swift; sourceTree = "<group>"; };
 		2229CC7E2C21E5F200FDD86A /* SensitivityAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensitivityAnalyzer.swift; sourceTree = "<group>"; };
+		2229CC942C22A14300FDD86A /* Photo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Photo.xcdatamodel; sourceTree = "<group>"; };
+		2229CC962C22A1A200FDD86A /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		2229CC9C2C22A37500FDD86A /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		2229CCAC2C22A95500FDD86A /* final.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = final.json; sourceTree = "<group>"; };
 		22EAC2D92C214F4200B40107 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		22EAC2DB2C214F4A00B40107 /* GalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewModel.swift; sourceTree = "<group>"; };
 		22EAC2DE2C2152BF00B40107 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -66,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2229CC9A2C22A31E00FDD86A /* Lottie in Frameworks */,
 				22F7AB502C2036DA00F25212 /* RxRelay in Frameworks */,
 				22F7AB4E2C2036DA00F25212 /* RxCocoa in Frameworks */,
 				22F7AB522C2036DA00F25212 /* RxSwift in Frameworks */,
@@ -106,8 +116,17 @@
 			isa = PBXGroup;
 			children = (
 				2229CC7E2C21E5F200FDD86A /* SensitivityAnalyzer.swift */,
+				2229CC962C22A1A200FDD86A /* CoreDataManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		2229CC9B2C22A36C00FDD86A /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				2229CC9C2C22A37500FDD86A /* SplashViewController.swift */,
+			);
+			path = Splash;
 			sourceTree = "<group>";
 		};
 		22EAC2D82C214F2D00B40107 /* Gallery */ = {
@@ -115,6 +134,7 @@
 			children = (
 				22EAC2DD2C214FF100B40107 /* Cells */,
 				22EAC2D92C214F4200B40107 /* GalleryViewController.swift */,
+				2229CC932C22A14300FDD86A /* Photo.xcdatamodeld */,
 				22EAC2DB2C214F4A00B40107 /* GalleryViewModel.swift */,
 			);
 			path = Gallery;
@@ -168,6 +188,7 @@
 		22F7AB3C2C202C2400F25212 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2229CCAC2C22A95500FDD86A /* final.json */,
 				2229CC692C21A4C600FDD86A /* Fonts */,
 				22F7AB302C2029E400F25212 /* Assets.xcassets */,
 			);
@@ -196,6 +217,7 @@
 		22F7AB3F2C202E1000F25212 /* UILayer */ = {
 			isa = PBXGroup;
 			children = (
+				2229CC9B2C22A36C00FDD86A /* Splash */,
 				22F7AB542C2039DD00F25212 /* Camera */,
 				22EAC2D82C214F2D00B40107 /* Gallery */,
 				2229CC612C21A20E00FDD86A /* Detail */,
@@ -247,6 +269,7 @@
 				22F7AB4D2C2036DA00F25212 /* RxCocoa */,
 				22F7AB4F2C2036DA00F25212 /* RxRelay */,
 				22F7AB512C2036DA00F25212 /* RxSwift */,
+				2229CC992C22A31E00FDD86A /* Lottie */,
 			);
 			productName = Ungteoring;
 			productReference = 22F7AB242C2029E200F25212 /* Ungteoring.app */;
@@ -279,6 +302,7 @@
 			packageReferences = (
 				22F7AB492C20369E00F25212 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				22F7AB4C2C2036DA00F25212 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				2229CC982C22A31E00FDD86A /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 22F7AB252C2029E200F25212 /* Products */;
 			projectDirPath = "";
@@ -294,6 +318,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2229CCAD2C22A95600FDD86A /* final.json in Resources */,
 				22F7AB312C2029E400F25212 /* Assets.xcassets in Resources */,
 				2229CC6F2C21A4C600FDD86A /* Pretendard-Regular.otf in Resources */,
 				2229CC702C21A4C600FDD86A /* Pretendard-SemiBold.otf in Resources */,
@@ -310,6 +335,7 @@
 				2229CC642C21A26B00FDD86A /* DetailViewController.swift in Sources */,
 				22F7AB482C20359700F25212 /* Date+.swift in Sources */,
 				22EAC2DC2C214F4A00B40107 /* GalleryViewModel.swift in Sources */,
+				2229CC952C22A14300FDD86A /* Photo.xcdatamodeld in Sources */,
 				2229CC602C217FDA00FDD86A /* UIViewController+.swift in Sources */,
 				22F7AB422C2034D300F25212 /* UIView+.swift in Sources */,
 				2229CC7F2C21E5F200FDD86A /* SensitivityAnalyzer.swift in Sources */,
@@ -318,12 +344,14 @@
 				2229CC732C21A61E00FDD86A /* UIStackView+.swift in Sources */,
 				2229CC682C21A4AC00FDD86A /* UIFont+.swift in Sources */,
 				22F7AB442C20350100F25212 /* UILabel+.swift in Sources */,
+				2229CC9D2C22A37500FDD86A /* SplashViewController.swift in Sources */,
 				22F7AB562C2039EB00F25212 /* CameraViewModel.swift in Sources */,
 				2229CC662C21A27100FDD86A /* DetailViewModel.swift in Sources */,
 				22EAC2DA2C214F4200B40107 /* GalleryViewController.swift in Sources */,
 				22EAC2DF2C2152BF00B40107 /* GalleryCollectionViewCell.swift in Sources */,
 				22F7AB282C2029E200F25212 /* AppDelegate.swift in Sources */,
 				2229CC7B2C21B62700FDD86A /* ImageResult.swift in Sources */,
+				2229CC972C22A1A200FDD86A /* CoreDataManager.swift in Sources */,
 				22F7AB2A2C2029E200F25212 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -546,6 +574,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2229CC982C22A31E00FDD86A /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.4.3;
+			};
+		};
 		22F7AB492C20369E00F25212 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -565,6 +601,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2229CC992C22A31E00FDD86A /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2229CC982C22A31E00FDD86A /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		22F7AB4A2C20369E00F25212 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 22F7AB492C20369E00F25212 /* XCRemoteSwiftPackageReference "SnapKit" */;
@@ -586,6 +627,19 @@
 			productName = RxSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		2229CC932C22A14300FDD86A /* Photo.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2229CC942C22A14300FDD86A /* Photo.xcdatamodel */,
+			);
+			currentVersion = 2229CC942C22A14300FDD86A /* Photo.xcdatamodel */;
+			path = Photo.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 22F7AB1C2C2029E200F25212 /* Project object */;
 }

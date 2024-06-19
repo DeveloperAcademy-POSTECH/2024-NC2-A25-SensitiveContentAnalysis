@@ -69,11 +69,23 @@ final class CameraViewController: UIViewController {
         bindViewModel()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
+        showSplash()
+    }
+    
 }
 
 // MARK: - Methods
 
 extension CameraViewController: AVCapturePhotoCaptureDelegate {
+    
+    private func showSplash() {
+        let splashViewController = SplashViewController()
+        splashViewController.modalPresentationStyle = .overFullScreen
+        present(splashViewController, animated: false)
+    }
     
     private func bindUIComponents() {
         galleryButton.rx.tap
