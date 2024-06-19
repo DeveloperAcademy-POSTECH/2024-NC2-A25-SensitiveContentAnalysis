@@ -141,6 +141,10 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
                         [owner.cancelButton,
                          owner.saveButton,
                          owner.uploadButton].forEach { $0.isHidden = true }
+                                        
+                        DispatchQueue.global(qos: .background).async {
+                            owner.captureSession.startRunning()
+                        }
                         
                         owner.previewImageView.isHidden = true
                         owner.removeBlurEffect()
@@ -152,6 +156,10 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
                          owner.saveButton,
                          owner.uploadButton].forEach { $0.isHidden = false }
                         
+                        DispatchQueue.global(qos: .background).async {
+                            owner.captureSession.stopRunning()
+                        }
+                        
                         owner.previewImageView.isHidden = false
                     case .sensitive:
                         [owner.galleryButton,
@@ -160,6 +168,10 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
                          owner.saveButton,
                          owner.changeButton,
                          owner.uploadButton].forEach { $0.isHidden = true }
+                        
+                        DispatchQueue.global(qos: .background).async {
+                            owner.captureSession.stopRunning()
+                        }
                         
                         owner.previewImageView.isHidden = false
                         owner.addBlurEffect()
@@ -196,7 +208,7 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
             captureSession.addInput(videoInput)
             captureSession.addOutput(photoOutput)
         } catch {
-            // 에러 처리
+            print("error")
         }
         
         let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
@@ -205,10 +217,6 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
                                    width: UIScreen.main.bounds.width - 32,
                                    height: (UIScreen.main.bounds.width - 32) * (4/3))
         cameraView.layer.addSublayer(previewLayer)
-        
-        DispatchQueue.global(qos: .background).async {
-            self.captureSession.startRunning()
-        }
     }
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {

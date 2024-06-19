@@ -12,7 +12,7 @@ final class SplashViewController: UIViewController {
     
     // MARK: UI Component
     
-    private let animationView: LottieAnimationView = .init(name: "final")
+    private let animationView: LottieAnimationView = .init(name: "mp4convert")
     
     // MARK: Life Cycle
     

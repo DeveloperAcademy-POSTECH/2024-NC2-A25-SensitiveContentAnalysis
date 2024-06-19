@@ -74,7 +74,10 @@ extension CameraViewModel {
             .bind(with: self) { owner, image in
                 guard let imageData = image.pngData() else { return }
                 CoreDataManager.shared.savePhoto(imageData: imageData)
-                owner.state.contentType.accept(.noData)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    owner.state.contentType.accept(.noData)
+                }
             }
             .disposed(by: disposeBag)
         

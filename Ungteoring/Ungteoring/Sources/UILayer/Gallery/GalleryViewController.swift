@@ -189,9 +189,11 @@ extension GalleryViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let imageData = viewModel.state.photos.value[indexPath.row].value(forKey: "image") as? Data,
-              let image = UIImage(data: imageData) else { return }
+              let image = UIImage(data: imageData),
+            let dateTime = viewModel.state.photos.value[indexPath.row].value(forKey: "createdAt") as? Date
+        else { return }
         
-        let detailViewController = DetailViewController(viewModel: DetailViewModel(image: image))
+        let detailViewController = DetailViewController(viewModel: DetailViewModel(image: image, dateTime: dateTime))
         detailViewController.modalPresentationStyle = .overFullScreen
         self.present(detailViewController, animated: true)
     }

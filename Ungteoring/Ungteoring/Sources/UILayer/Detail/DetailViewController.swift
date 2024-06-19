@@ -36,7 +36,7 @@ final class DetailViewController: UIViewController {
     
     private let dateTimeLabel: UILabel = {
         let label = UILabel()
-        label.font = .pretendardR(16)
+        label.font = .pretendardB(16)
         label.textColor = .gray
         return label
     }()
@@ -73,6 +73,7 @@ final class DetailViewController: UIViewController {
         super.viewDidLoad()
         
         setUI()
+        setData()
         bindUIComponents()
     }
     
@@ -81,6 +82,11 @@ final class DetailViewController: UIViewController {
 // MARK: - Methods
 
 extension DetailViewController {
+    
+    private func setData() {
+        self.detailImageView.image = viewModel.state.image
+        self.dateTimeLabel.text = viewModel.state.dateTime.format(.dateDayTime)
+    }
     
     private func bindUIComponents() {
         galleryButton.rx.tap

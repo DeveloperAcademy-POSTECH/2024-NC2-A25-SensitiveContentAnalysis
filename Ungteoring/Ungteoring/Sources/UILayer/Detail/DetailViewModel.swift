@@ -13,14 +13,15 @@ final class DetailViewModel {
     
     struct State {
         let image: UIImage
+        let dateTime: Date
     }
     
     let state: State
     
     // MARK: Initailizer
     
-    init(image: UIImage) {
-        self.state = State(image: image)
+    init(image: UIImage, dateTime: Date) {
+        self.state = State(image: image, dateTime: dateTime)
     }
     
 }
