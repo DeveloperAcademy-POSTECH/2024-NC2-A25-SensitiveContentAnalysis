@@ -25,9 +25,7 @@ final class SplashViewController: UIViewController {
         
         setUI()
         setGIF()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.dismiss(animated: false)
-        }
+        changeRoot()
     }
     
 }
@@ -35,6 +33,15 @@ final class SplashViewController: UIViewController {
 // MARK: - Methods
 
 extension SplashViewController {
+    
+    private func changeRoot() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            let mainViewController = CameraViewController(viewModel: CameraViewModel())
+            let navigationController = UINavigationController(rootViewController: mainViewController)
+            
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(navigationController, animated: false)
+        }
+    }
     
     private func setGIF() {
         guard
