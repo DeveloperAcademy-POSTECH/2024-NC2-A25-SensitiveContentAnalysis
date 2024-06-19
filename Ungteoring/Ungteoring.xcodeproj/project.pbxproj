@@ -23,6 +23,9 @@
 		2229CCB12C22B4F700FDD86A /* Photo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CCAF2C22B4F700FDD86A /* Photo+CoreDataClass.swift */; };
 		2229CCB22C22B4F700FDD86A /* Photo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CCB02C22B4F700FDD86A /* Photo+CoreDataProperties.swift */; };
 		2229CCB42C22B7C200FDD86A /* mp4convert.json in Resources */ = {isa = PBXBuildFile; fileRef = 2229CCB32C22B7C200FDD86A /* mp4convert.json */; };
+		2229CCB72C22BCC100FDD86A /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CCB62C22BCC100FDD86A /* StorageManager.swift */; };
+		2229CCB92C22BDA500FDD86A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CCB82C22BDA500FDD86A /* OnboardingViewController.swift */; };
+		2229CCBB2C22BF6E00FDD86A /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CCBA2C22BF6E00FDD86A /* OnboardingViewModel.swift */; };
 		22EAC2DA2C214F4200B40107 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EAC2D92C214F4200B40107 /* GalleryViewController.swift */; };
 		22EAC2DC2C214F4A00B40107 /* GalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EAC2DB2C214F4A00B40107 /* GalleryViewModel.swift */; };
 		22EAC2DF2C2152BF00B40107 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EAC2DE2C2152BF00B40107 /* GalleryCollectionViewCell.swift */; };
@@ -57,6 +60,9 @@
 		2229CCAF2C22B4F700FDD86A /* Photo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		2229CCB02C22B4F700FDD86A /* Photo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2229CCB32C22B7C200FDD86A /* mp4convert.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mp4convert.json; sourceTree = "<group>"; };
+		2229CCB62C22BCC100FDD86A /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		2229CCB82C22BDA500FDD86A /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		2229CCBA2C22BF6E00FDD86A /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		22EAC2D92C214F4200B40107 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		22EAC2DB2C214F4A00B40107 /* GalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewModel.swift; sourceTree = "<group>"; };
 		22EAC2DE2C2152BF00B40107 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -121,6 +127,7 @@
 			children = (
 				2229CC7E2C21E5F200FDD86A /* SensitivityAnalyzer.swift */,
 				2229CC962C22A1A200FDD86A /* CoreDataManager.swift */,
+				2229CCB62C22BCC100FDD86A /* StorageManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -141,6 +148,15 @@
 				2229CCB02C22B4F700FDD86A /* Photo+CoreDataProperties.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		2229CCB52C22BC9200FDD86A /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				2229CCB82C22BDA500FDD86A /* OnboardingViewController.swift */,
+				2229CCBA2C22BF6E00FDD86A /* OnboardingViewModel.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		22EAC2D82C214F2D00B40107 /* Gallery */ = {
@@ -231,6 +247,7 @@
 		22F7AB3F2C202E1000F25212 /* UILayer */ = {
 			isa = PBXGroup;
 			children = (
+				2229CCB52C22BC9200FDD86A /* Onboarding */,
 				2229CC9B2C22A36C00FDD86A /* Splash */,
 				22F7AB542C2039DD00F25212 /* Camera */,
 				22EAC2D82C214F2D00B40107 /* Gallery */,
@@ -358,11 +375,14 @@
 				2229CCB22C22B4F700FDD86A /* Photo+CoreDataProperties.swift in Sources */,
 				2229CC732C21A61E00FDD86A /* UIStackView+.swift in Sources */,
 				2229CC682C21A4AC00FDD86A /* UIFont+.swift in Sources */,
+				2229CCB92C22BDA500FDD86A /* OnboardingViewController.swift in Sources */,
 				22F7AB442C20350100F25212 /* UILabel+.swift in Sources */,
 				2229CCB12C22B4F700FDD86A /* Photo+CoreDataClass.swift in Sources */,
 				2229CC9D2C22A37500FDD86A /* SplashViewController.swift in Sources */,
+				2229CCB72C22BCC100FDD86A /* StorageManager.swift in Sources */,
 				22F7AB562C2039EB00F25212 /* CameraViewModel.swift in Sources */,
 				2229CC662C21A27100FDD86A /* DetailViewModel.swift in Sources */,
+				2229CCBB2C22BF6E00FDD86A /* OnboardingViewModel.swift in Sources */,
 				22EAC2DA2C214F4200B40107 /* GalleryViewController.swift in Sources */,
 				22EAC2DF2C2152BF00B40107 /* GalleryCollectionViewCell.swift in Sources */,
 				22F7AB282C2029E200F25212 /* AppDelegate.swift in Sources */,
