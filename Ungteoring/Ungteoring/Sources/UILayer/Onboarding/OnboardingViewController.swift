@@ -47,7 +47,7 @@ final class OnboardingViewController: UIViewController {
         let button = UIButton()
         button.setTitle("다음", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.layer.cornerRadius = 12
+        button.layer.cornerRadius = 20
         button.backgroundColor = .accent
         return button
     }()
