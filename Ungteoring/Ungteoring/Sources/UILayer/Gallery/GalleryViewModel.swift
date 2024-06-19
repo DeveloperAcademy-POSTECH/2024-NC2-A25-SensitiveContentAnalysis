@@ -45,7 +45,7 @@ extension GalleryViewModel {
     func fetchPhotos() {
         let photoFetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Photo")
         let photos = CoreDataManager.shared.fetchContext(request: photoFetchRequest)
-        state.photos.accept(photos)
+        state.photos.accept(photos.reversed())
     }
     
 }
