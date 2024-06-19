@@ -106,7 +106,9 @@ extension OnboardingViewController {
                 
                 owner.mainImageView.image = owner.viewModel.state.images[page]
                 owner.mainTitleLabel.text = owner.viewModel.state.mainTitles[page]
+                owner.mainTitleLabel.setLineSpacing(lineSpacing: 4)
                 owner.subTitleLabel.text = owner.viewModel.state.subTitles[page]
+                owner.subTitleLabel.setLineSpacing(lineSpacing: 4)
             }
             .disposed(by: disposeBag)
     }
@@ -170,7 +172,7 @@ extension OnboardingViewController {
         nextButton.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(38)
             make.horizontalEdges.equalToSuperview().inset(30)
-            make.height.equalTo(60)
+            make.height.equalTo(54)
         }
     }
     

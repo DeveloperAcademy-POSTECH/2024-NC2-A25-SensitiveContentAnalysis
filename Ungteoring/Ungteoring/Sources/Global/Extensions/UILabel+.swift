@@ -9,25 +9,13 @@ import UIKit
 
 extension UILabel {
  
-    // label의 height 조절
-    func setLineHeight() {
+    /// 행간 조정 메서드
+    func setLineSpacing(lineSpacing: CGFloat) {
         if let text = self.text {
-            let lineHeight: CGFloat = self.font.pointSize + 8
-            
+            let attributeString = NSMutableAttributedString(string: text)
             let style = NSMutableParagraphStyle()
-            style.maximumLineHeight = lineHeight
-            style.minimumLineHeight = lineHeight
-            
-            style.lineBreakMode = .byTruncatingTail
-            style.lineBreakStrategy = .hangulWordPriority
-            
-            let attributes: [NSAttributedString.Key: Any] = [
-            .paragraphStyle: style,
-            .baselineOffset: (lineHeight - font.lineHeight) / 2
-            ]
-            
-            let attributeString = NSAttributedString(string: text,
-                                                     attributes: attributes)
+            style.lineSpacing = lineSpacing
+            attributeString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: NSMakeRange(0, attributeString.length))
             self.attributedText = attributeString
         }
     }
