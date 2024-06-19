@@ -29,16 +29,7 @@ final class SplashViewController: UIViewController {
         animationView.play()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            if StorageManager.isFirstTime() {
-                let onboardingViewController = OnboardingViewController(viewModel: OnboardingViewModel())
-                guard let pvc = self.presentingViewController else { return }
-
-                self.dismiss(animated: true) {
-                  pvc.present(onboardingViewController, animated: false, completion: nil)
-                }
-            } else {
-                self.dismiss(animated: true)
-            }
+            self.dismiss(animated: false)
         }
     }
     

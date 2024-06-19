@@ -80,11 +80,20 @@ final class CameraViewController: UIViewController {
 // MARK: - Methods
 
 extension CameraViewController: AVCapturePhotoCaptureDelegate {
-    
+
     private func showSplash() {
         let splashViewController = SplashViewController()
         splashViewController.modalPresentationStyle = .overFullScreen
-        present(splashViewController, animated: false)
+        
+        if StorageManager.isFirstTime() {
+            let onboardingViewController = OnboardingViewController(viewModel: OnboardingViewModel())
+            onboardingViewController.modalPresentationStyle = .overFullScreen
+            present(onboardingViewController, animated: false) {
+                self.presentedViewController?.present(splashViewController, animated: false)
+            }
+        } else {
+            present(splashViewController, animated: false)
+        }
     }
     
     private func bindUIComponents() {
