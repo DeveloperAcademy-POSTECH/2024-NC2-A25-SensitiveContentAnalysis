@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 import RxSwift
 import RxRelay
@@ -71,7 +72,9 @@ extension CameraViewModel {
         
         action.didSaveButtonTap
             .bind(with: self) { owner, image in
-                // TODO: - 데이터 추가
+                guard let imageData = image.pngData() else { return }
+                CoreDataManager.shared.savePhoto(imageData: imageData)
+                owner.state.contentType.accept(.noData)
             }
             .disposed(by: disposeBag)
         

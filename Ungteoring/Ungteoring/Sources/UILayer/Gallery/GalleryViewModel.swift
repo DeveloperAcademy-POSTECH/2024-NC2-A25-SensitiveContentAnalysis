@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 import RxSwift
 import RxRelay
@@ -17,7 +18,7 @@ final class GalleryViewModel {
     private let disposeBag = DisposeBag()
     
     struct State {
-//        let photos = BehaviorRelay<[Photo]>(value: [])
+        let photos = BehaviorRelay<[NSManagedObject]>(value: [])
     }
     
     struct Action {
@@ -33,6 +34,18 @@ final class GalleryViewModel {
     init() {
         self.state = State()
         self.action = Action()
+    }
+    
+}
+
+// MARK: - Methods
+
+extension GalleryViewModel {
+    
+    func fetchPhotos() {
+        let photoFetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Photo")
+        let photos = CoreDataManager.shared.fetchContext(request: photoFetchRequest)
+        state.photos.accept(photos)
     }
     
 }

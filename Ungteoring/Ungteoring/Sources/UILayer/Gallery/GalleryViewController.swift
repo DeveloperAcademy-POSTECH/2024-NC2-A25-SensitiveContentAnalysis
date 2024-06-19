@@ -19,7 +19,7 @@ final class GalleryViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     // MARK: UI Component
-
+    
     private lazy var galleryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -41,13 +41,13 @@ final class GalleryViewController: UIViewController {
     
     private lazy var gradientBottomView: UIView = {
         let view = UIView()
-
+        
         let gradient = CAGradientLayer()
         gradient.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 110)
         gradient.colors = [UIColor.black.withAlphaComponent(0.0).cgColor,
                            UIColor.black.cgColor]
         view.layer.insertSublayer(gradient, at: 0)
-
+        
         return view
     }()
     
@@ -59,11 +59,19 @@ final class GalleryViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         setUI()
         bindUIComponents()
-//        bindViewModel()
+        bindViewModel()
     }
     
     required init?(coder: NSCoder) {
         fatalError()
+    }
+    
+    // MARK: Life Cycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        viewModel.fetchPhotos()
     }
     
 }
@@ -73,11 +81,11 @@ final class GalleryViewController: UIViewController {
 extension GalleryViewController  {
     
     private func bindViewModel() {
-//        viewModel.state.photos
-//            .bind(with: self) { owner, photos in
-//                owner.galleryCollectionView.reloadData()
-//            }
-//            .disposed(by: disposeBag)
+        viewModel.state.photos
+            .bind(with: self) { owner, photos in
+                owner.galleryCollectionView.reloadData()
+            }
+            .disposed(by: disposeBag)
     }
     
     private func bindUIComponents() {
@@ -110,7 +118,7 @@ extension GalleryViewController  {
 // MARK: - PHPickerViewControllerDelegate
 
 extension GalleryViewController : PHPickerViewControllerDelegate {
-
+    
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
         
@@ -122,6 +130,7 @@ extension GalleryViewController : PHPickerViewControllerDelegate {
             if itemProvider.canLoadObject(ofClass: UIImage.self) {
                 itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
                     guard let self = self, let image = image as? UIImage else { return }
+                    // 이미지 확인 후 저장
                 }
             }
         }
@@ -152,20 +161,24 @@ extension GalleryViewController: UICollectionViewDelegateFlowLayout {
 extension GalleryViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return viewModel.state.photos.value.count
-        return 20
+        return viewModel.state.photos.value.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GalleryCollectionViewCell.className, for: indexPath) as? GalleryCollectionViewCell else { return UICollectionViewCell() }
         
-//        cell.setData(with: viewModel.state.photos.value[indexPath.row].image)
+        if let imageData = viewModel.state.photos.value[indexPath.row].value(forKey: "image") as? Data,
+           let image = UIImage(data: imageData) {
+            cell.setData(with: image)
+        }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let detailViewController = DetailViewController(viewModel: DetailViewModel(image: viewModel.state.photos.value[indexPath.row].image))
-        let detailViewController = DetailViewController(viewModel: DetailViewModel(image: .album))
+        guard let imageData = viewModel.state.photos.value[indexPath.row].value(forKey: "image") as? Data,
+              let image = UIImage(data: imageData) else { return }
+        
+        let detailViewController = DetailViewController(viewModel: DetailViewModel(image: image))
         detailViewController.modalPresentationStyle = .overFullScreen
         self.present(detailViewController, animated: true)
     }

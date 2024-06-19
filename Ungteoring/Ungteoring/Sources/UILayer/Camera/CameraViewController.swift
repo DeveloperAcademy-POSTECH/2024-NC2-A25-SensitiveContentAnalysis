@@ -117,7 +117,8 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
         
         saveButton.rx.tap
             .bind(with: self) { owner, _ in
-//                owner.viewModel.action.didSaveButtonTap.onNext(())
+                guard let image = owner.previewImageView.image else { return }
+                owner.viewModel.action.didSaveButtonTap.accept(image)
             }
             .disposed(by: disposeBag)
         
