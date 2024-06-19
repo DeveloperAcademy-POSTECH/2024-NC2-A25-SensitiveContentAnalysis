@@ -41,7 +41,11 @@ extension Date {
         
         if case let (h?, m?) = (offsetComps.hour, offsetComps.minute) {
             if h == 0 {
-                return "\(m)분 전"
+                if m == 0 {
+                    return "방금 전"
+                } else {
+                    return "\(m)분 전"
+                }
             } else if h < 24 {
                 return "\(h)시간 전"
             } else {
