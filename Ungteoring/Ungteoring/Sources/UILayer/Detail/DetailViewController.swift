@@ -103,7 +103,15 @@ extension DetailViewController {
         
         uploadButton.rx.tap
             .bind(with: self) { owner, _ in
-                print("업로드 버튼")
+                guard let shareImage: UIImage = owner.detailImageView.image else { return }
+                var shareObject = [Any]()
+                
+                shareObject.append(shareImage)
+                
+                let activityViewController = UIActivityViewController(activityItems : shareObject, applicationActivities: nil)
+                activityViewController.popoverPresentationController?.sourceView = owner.view
+                
+                owner.present(activityViewController, animated: true, completion: nil)
             }
             .disposed(by: disposeBag)
     }

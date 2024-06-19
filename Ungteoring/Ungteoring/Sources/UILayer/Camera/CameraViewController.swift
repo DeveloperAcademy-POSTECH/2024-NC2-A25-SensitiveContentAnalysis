@@ -88,12 +88,8 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
         //        if StorageManager.isFirstTime() {
         let onboardingViewController = OnboardingViewController(viewModel: OnboardingViewModel())
         onboardingViewController.modalPresentationStyle = .overFullScreen
-        present(onboardingViewController, animated: false) {
-            self.presentedViewController?.present(splashViewController, animated: false)
-        }
-        //        } else {
-        //            present(splashViewController, animated: false)
-        //        }
+        present(onboardingViewController, animated: false)
+//    }
     }
     
     private func bindUIComponents() {
@@ -133,7 +129,15 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
         
         uploadButton.rx.tap
             .bind(with: self) { owner, _ in
-                // 공유하기
+                guard let shareImage: UIImage = owner.previewImageView.image else { return }
+                var shareObject = [Any]()
+                
+                shareObject.append(shareImage)
+                
+                let activityViewController = UIActivityViewController(activityItems : shareObject, applicationActivities: nil)
+                activityViewController.popoverPresentationController?.sourceView = owner.view
+                
+                owner.present(activityViewController, animated: true, completion: nil)
             }
             .disposed(by: disposeBag)
     }
