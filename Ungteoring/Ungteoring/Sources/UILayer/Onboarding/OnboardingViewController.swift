@@ -37,7 +37,7 @@ final class OnboardingViewController: UIViewController {
     
     private let mainImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -87,6 +87,10 @@ extension OnboardingViewController {
                 
                 if current < 3 {
                     owner.viewModel.state.page.accept(current + 1)
+                    
+                    if current == 2 {
+                        owner.nextButton.setTitle("설정으로 이동", for: .normal)
+                    }
                 } else {
                     owner.dismiss(animated: false)
                 }
@@ -138,7 +142,7 @@ extension OnboardingViewController {
         mainImageView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
             make.height.equalTo(380)
-            make.top.equalTo(subTitleLabel.snp.bottom).offset(22)
+            make.top.equalTo(subTitleLabel.snp.bottom).offset(30)
         }
         
         pageControl.snp.makeConstraints { make in

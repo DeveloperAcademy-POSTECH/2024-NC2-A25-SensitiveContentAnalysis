@@ -85,15 +85,15 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
         let splashViewController = SplashViewController()
         splashViewController.modalPresentationStyle = .overFullScreen
         
-        if StorageManager.isFirstTime() {
+//        if StorageManager.isFirstTime() {
             let onboardingViewController = OnboardingViewController(viewModel: OnboardingViewModel())
             onboardingViewController.modalPresentationStyle = .overFullScreen
             present(onboardingViewController, animated: false) {
                 self.presentedViewController?.present(splashViewController, animated: false)
             }
-        } else {
-            present(splashViewController, animated: false)
-        }
+//        } else {
+//            present(splashViewController, animated: false)
+//        }
     }
     
     private func bindUIComponents() {
