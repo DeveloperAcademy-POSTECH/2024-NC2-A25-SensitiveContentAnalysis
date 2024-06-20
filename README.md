@@ -8,12 +8,11 @@
 ## 🎯 What we focus on?
 ![image](https://github.com/DeveloperAcademy-POSTECH/2024-NC2-A25-SensitiveContentAnalysis/assets/58043306/f56f7fe0-27ba-4a5c-bb55-fa13bf1caf20)
 
-
 ## 💼 Use Case
 ![NC2 최종 005](https://github.com/DeveloperAcademy-POSTECH/2024-NC2-A25-SensitiveContentAnalysis/assets/58043306/631ac0ee-bf3b-4595-88d7-3cdc3c68ecd5)
 
 ## 🖼️ Prototype
-![NC2 최종 006](https://github.com/DeveloperAcademy-POSTECH/2024-NC2-A25-SensitiveContentAnalysis/assets/58043306/f280f713-0e5a-46b8-a91d-55a65324c5d8)
+![image](https://github.com/DeveloperAcademy-POSTECH/2024-NC2-A25-SensitiveContentAnalysis/assets/58043306/b0f971fb-cb50-4a93-ab42-acfad84cde16)
 
 ## 🛠️ About Code
 ![NC2 최종 007](https://github.com/DeveloperAcademy-POSTECH/2024-NC2-A25-SensitiveContentAnalysis/assets/58043306/db7be5d9-503f-41e0-b470-4b7a5b194005)
