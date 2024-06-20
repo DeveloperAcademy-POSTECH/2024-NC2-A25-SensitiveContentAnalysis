@@ -17,7 +17,6 @@
 		2229CC7F2C21E5F200FDD86A /* SensitivityAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CC7E2C21E5F200FDD86A /* SensitivityAnalyzer.swift */; };
 		2229CC952C22A14300FDD86A /* Photo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2229CC932C22A14300FDD86A /* Photo.xcdatamodeld */; };
 		2229CC972C22A1A200FDD86A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CC962C22A1A200FDD86A /* CoreDataManager.swift */; };
-		2229CC9A2C22A31E00FDD86A /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 2229CC992C22A31E00FDD86A /* Lottie */; };
 		2229CC9D2C22A37500FDD86A /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CC9C2C22A37500FDD86A /* SplashViewController.swift */; };
 		2229CCB12C22B4F700FDD86A /* Photo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CCAF2C22B4F700FDD86A /* Photo+CoreDataClass.swift */; };
 		2229CCB22C22B4F700FDD86A /* Photo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229CCB02C22B4F700FDD86A /* Photo+CoreDataProperties.swift */; };
@@ -85,7 +84,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2229CC9A2C22A31E00FDD86A /* Lottie in Frameworks */,
 				22F7AB502C2036DA00F25212 /* RxRelay in Frameworks */,
 				22F7AB4E2C2036DA00F25212 /* RxCocoa in Frameworks */,
 				22F7AB522C2036DA00F25212 /* RxSwift in Frameworks */,
@@ -300,7 +298,6 @@
 				22F7AB4D2C2036DA00F25212 /* RxCocoa */,
 				22F7AB4F2C2036DA00F25212 /* RxRelay */,
 				22F7AB512C2036DA00F25212 /* RxSwift */,
-				2229CC992C22A31E00FDD86A /* Lottie */,
 			);
 			productName = Ungteoring;
 			productReference = 22F7AB242C2029E200F25212 /* Ungteoring.app */;
@@ -333,7 +330,6 @@
 			packageReferences = (
 				22F7AB492C20369E00F25212 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				22F7AB4C2C2036DA00F25212 /* XCRemoteSwiftPackageReference "RxSwift" */,
-				2229CC982C22A31E00FDD86A /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 22F7AB252C2029E200F25212 /* Products */;
 			projectDirPath = "";
@@ -610,14 +606,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2229CC982C22A31E00FDD86A /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.4.3;
-			};
-		};
 		22F7AB492C20369E00F25212 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -637,11 +625,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2229CC992C22A31E00FDD86A /* Lottie */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2229CC982C22A31E00FDD86A /* XCRemoteSwiftPackageReference "lottie-ios" */;
-			productName = Lottie;
-		};
 		22F7AB4A2C20369E00F25212 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 22F7AB492C20369E00F25212 /* XCRemoteSwiftPackageReference "SnapKit" */;
