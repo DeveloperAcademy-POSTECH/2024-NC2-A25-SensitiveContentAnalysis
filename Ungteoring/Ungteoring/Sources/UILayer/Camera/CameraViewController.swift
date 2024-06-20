@@ -31,6 +31,13 @@ final class CameraViewController: UIViewController {
         return view
     }()
     
+    private let flashButton: UIButton = {
+        let button = UIButton()
+        button.setImage(.flashOff, for: .normal)
+        button.setImage(.flashOn, for: .selected)
+        return button
+    }()
+    
     private let previewImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 12
@@ -93,8 +100,18 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
     }
     
     private func bindUIComponents() {
+        flashButton.rx.tap
+            .bind(with: self) { owner, _ in
+                owner.flashButton.isSelected.toggle()
+                owner.flashButton.isSelected ? owner.turnOnFlash() : owner.turnOffFlash()
+            }
+            .disposed(by: disposeBag)
+        
         galleryButton.rx.tap
             .bind(with: self) { owner, _ in
+                owner.flashButton.isSelected = false
+                owner.turnOffFlash()
+                
                 let galleryViewController = GalleryViewController(viewModel: GalleryViewModel())
                 galleryViewController.modalPresentationStyle = .overFullScreen
                 owner.present(galleryViewController, animated: true)
@@ -105,6 +122,8 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
             .bind(with: self) { owner, _ in
                 let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
                 owner.photoOutput.capturePhoto(with: settings, delegate: owner)
+                
+                owner.flashButton.isSelected = false
             }
             .disposed(by: disposeBag)
         
@@ -255,6 +274,36 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
         return device
     }
     
+    private func turnOnFlash() {
+        DispatchQueue.main.async {
+            guard let device = AVCaptureDevice.default(for: .video) else { return }
+            
+            if device.hasTorch {
+                do {
+                    try device.lockForConfiguration()
+                    device.torchMode = .on
+                } catch {
+                    print("error")
+                }
+            }
+        }
+    }
+    
+    private func turnOffFlash() {
+        DispatchQueue.main.async {
+            guard let device = AVCaptureDevice.default(for: .video) else { return }
+            
+            if device.hasTorch {
+                do {
+                    try device.lockForConfiguration()
+                    device.torchMode = .off
+                } catch {
+                    print("error")
+                }
+            }
+        }
+    }
+    
 }
 
 // MARK: - UI
@@ -264,6 +313,7 @@ extension CameraViewController {
     private func setUI() {
         view.backgroundColor = .black
         view.addSubviews([cameraView,
+                          flashButton,
                           previewImageView,
                           galleryButton,
                           shutterButton,
@@ -281,6 +331,10 @@ extension CameraViewController {
             make.top.equalToSuperview().inset(110)
             make.height.equalTo((UIScreen.main.bounds.width - 32) * (4/3))
         }}
+        
+        flashButton.snp.makeConstraints { make in
+            make.top.leading.equalTo(cameraView).inset(20)
+        }
         
         [galleryButton, cancelButton].forEach { $0.snp.makeConstraints { make in
             make.centerY.equalTo(shutterButton)
