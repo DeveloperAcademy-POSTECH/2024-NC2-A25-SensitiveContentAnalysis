@@ -13,10 +13,10 @@ final class SplashViewController: UIViewController {
     // MARK: UI Component
     
     private let gifImageView = {
-            let view = UIImageView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
+        let view = UIImageView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     // MARK: Life Cycle
     
@@ -52,11 +52,11 @@ extension SplashViewController {
         
         let frameCount = CGImageSourceGetCount(source)
         var images = [UIImage]()
-
+        
         (0..<frameCount)
             .compactMap { CGImageSourceCreateImageAtIndex(source, $0, nil) }
             .forEach { images.append(UIImage(cgImage: $0)) }
-
+        
         gifImageView.animationImages = images
         gifImageView.animationDuration = TimeInterval(frameCount) * 0.05
         gifImageView.animationRepeatCount = 0
@@ -78,7 +78,7 @@ extension SplashViewController {
     
     private func setConstraints() {
         gifImageView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+            make.edges.equalToSuperview()
         }
     }
 }
